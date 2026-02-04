@@ -239,7 +239,7 @@ export default function Study1Page() {
           />
         )}
 
-        {step === 5 && <PosttestForm onSubmit={handlePosttestSubmit} />}
+        {step === 5 && <PosttestForm onSubmit={handlePosttestSubmit} studyVersion="study1" />}
 
         {step === 6 && <ThankYou />}
       </div>

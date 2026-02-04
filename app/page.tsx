@@ -30,12 +30,6 @@ export default function Home() {
         </div>
         <div className="space-y-3">
           <Link
-            href="/study1"
-            className="block w-full text-center px-6 py-3 rounded-md bg-blue-600 text-white text-sm hover:bg-blue-700 transition-colors"
-          >
-            {t("home.study1")}
-          </Link>
-          <Link
             href="/study2"
             className="block w-full text-center px-6 py-3 rounded-md bg-emerald-600 text-white text-sm hover:bg-emerald-700 transition-colors"
           >

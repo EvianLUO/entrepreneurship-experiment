@@ -270,7 +270,7 @@ export default function Study2Page() {
           />
         )}
 
-        {step === 5 && <PosttestForm onSubmit={handlePosttestSubmit} />}
+        {step === 5 && <PosttestForm onSubmit={handlePosttestSubmit} studyVersion="study2" aiReasoner={ai_reasoner} />}
 
         {step === 6 && <ThankYou />}
       </div>
