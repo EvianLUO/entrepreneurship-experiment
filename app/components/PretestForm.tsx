@@ -27,28 +27,20 @@ export const PretestForm: React.FC<Props> = ({ onSubmit }) => {
       "A3",
       "A4",
       "A5",
-      "industry", // 行业
-      "A6",
+      "A6", // 行业
       "A7",
       "A8",
-      "A12",
+      "A9",
+      "A10",
     ];
     // 如果选择了"其他"，需要填写具体行业
-    if (form["industry"] === "其他（请注明）" && !form["industry_other"]) {
+    if (form["A6"] === "其他（请注明）" && !form["A6_other"]) {
       setError("请注明具体行业");
       return;
     }
     // 检查GenAI依赖量表（G1-G12）
     for (let i = 1; i <= 12; i++) {
       requiredKeys.push(`G${i}`);
-    }
-    // 检查ESE量表（ese_1到ese_19）
-    for (let i = 1; i <= 19; i++) {
-      requiredKeys.push(`ese_${i}`);
-    }
-    // 检查AI素养量表（ai_literacy_1到ai_literacy_12）
-    for (let i = 1; i <= 12; i++) {
-      requiredKeys.push(`ai_literacy_${i}`);
     }
     for (const k of requiredKeys) {
       if (!form[k]) {
@@ -184,32 +176,8 @@ export const PretestForm: React.FC<Props> = ({ onSubmit }) => {
         </div>
 
         <div className="border rounded-md p-3 text-sm space-y-2">
-          <div>{t("pretest.questions.industry")}</div>
+          <div>A6. {t("pretest.questions.A6_industry")}</div>
           {(Array.isArray(options.industry) ? options.industry : []).map((opt: string) => (
-            <label key={opt} className="flex items-center gap-2">
-              <input
-                type="radio"
-                name="industry"
-                checked={form["industry"] === opt}
-                onChange={() => handleChange("industry", opt)}
-              />
-              <span>{opt}</span>
-            </label>
-          ))}
-          {form["industry"] === "其他（请注明）" && (
-            <input
-              type="text"
-              placeholder="请注明具体行业"
-              className="border rounded-md px-2 py-1 w-full mt-2"
-              value={form["industry_other"] ?? ""}
-              onChange={(e) => handleChange("industry_other", e.target.value)}
-            />
-          )}
-        </div>
-
-        <div className="border rounded-md p-3 text-sm space-y-2">
-          <div>A6. {t("pretest.questions.A6")}</div>
-          {(Array.isArray(options.genaiYear) ? options.genaiYear : []).map((opt: string) => (
             <label key={opt} className="flex items-center gap-2">
               <input
                 type="radio"
@@ -220,11 +188,20 @@ export const PretestForm: React.FC<Props> = ({ onSubmit }) => {
               <span>{opt}</span>
             </label>
           ))}
+          {form["A6"] === "其他（请注明）" && (
+            <input
+              type="text"
+              placeholder="请注明具体行业"
+              className="border rounded-md px-2 py-1 w-full mt-2"
+              value={form["A6_other"] ?? ""}
+              onChange={(e) => handleChange("A6_other", e.target.value)}
+            />
+          )}
         </div>
 
         <div className="border rounded-md p-3 text-sm space-y-2">
           <div>A7. {t("pretest.questions.A7")}</div>
-          {(Array.isArray(options.frequency) ? options.frequency : []).map((opt: string) => (
+          {(Array.isArray(options.genaiYear) ? options.genaiYear : []).map((opt: string) => (
             <label key={opt} className="flex items-center gap-2">
               <input
                 type="radio"
@@ -239,7 +216,7 @@ export const PretestForm: React.FC<Props> = ({ onSubmit }) => {
 
         <div className="border rounded-md p-3 text-sm space-y-2">
           <div>A8. {t("pretest.questions.A8")}</div>
-          {(Array.isArray(options.duration) ? options.duration : []).map((opt: string) => (
+          {(Array.isArray(options.frequency) ? options.frequency : []).map((opt: string) => (
             <label key={opt} className="flex items-center gap-2">
               <input
                 type="radio"
@@ -253,14 +230,29 @@ export const PretestForm: React.FC<Props> = ({ onSubmit }) => {
         </div>
 
         <div className="border rounded-md p-3 text-sm space-y-2">
-          <div>A12. {t("pretest.questions.A12")}</div>
+          <div>A9. {t("pretest.questions.A9")}</div>
+          {(Array.isArray(options.duration) ? options.duration : []).map((opt: string) => (
+            <label key={opt} className="flex items-center gap-2">
+              <input
+                type="radio"
+                name="A9"
+                checked={form["A9"] === opt}
+                onChange={() => handleChange("A9", opt)}
+              />
+              <span>{opt}</span>
+            </label>
+          ))}
+        </div>
+
+        <div className="border rounded-md p-3 text-sm space-y-2">
+          <div>A10. {t("pretest.questions.A10")}</div>
           {(Array.isArray(options.attention) ? options.attention : []).map((opt: string) => (
             <label key={opt} className="flex items-center gap-2">
               <input
                 type="radio"
-                name="A12"
-                checked={form["A12"] === opt}
-                onChange={() => handleChange("A12", opt)}
+                name="A10"
+                checked={form["A10"] === opt}
+                onChange={() => handleChange("A10", opt)}
               />
               <span>{opt}</span>
             </label>
@@ -271,18 +263,6 @@ export const PretestForm: React.FC<Props> = ({ onSubmit }) => {
       <section className="space-y-4">
         <h3 className="font-semibold text-gray-800">{t("pretest.section2")}</h3>
         {renderLikert("G", t("pretest.genaiDependence"))}
-      </section>
-
-      <section className="space-y-4">
-        <h3 className="font-semibold text-gray-800">{t("pretest.section4")}</h3>
-        <p className="text-sm text-gray-700 mb-4">{t("pretest.eseIntro")}</p>
-        {renderLikert("ese_", t("pretest.ese"), false)}
-      </section>
-
-      <section className="space-y-4">
-        <h3 className="font-semibold text-gray-800">{t("pretest.section5")}</h3>
-        <p className="text-sm text-gray-700 mb-4">{t("pretest.aiLiteracyIntro")}</p>
-        {renderLikert("ai_literacy_", t("pretest.aiLiteracy"))}
       </section>
 
       {error && <div className="text-red-600 text-sm">{error}</div>}

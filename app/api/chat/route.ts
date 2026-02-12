@@ -1,18 +1,33 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
-const API_KEY = "sk-a4f7b39761b84aee8bfff2bd5897ae7c";
-const BASE_URL = "https://api.deepseek.com";
+const API_KEY = process.env.DEEPSEEK_API_KEY || "sk-e363c4fc6e5848a8b5e1b82c39fdd32a";
+const BASE_URL = process.env.DEEPSEEK_BASE_URL || "https://api.deepseek.com";
 
-const client = new OpenAI({
-  apiKey: API_KEY,
-  baseURL: BASE_URL,
-});
+function getClient() {
+  if (!API_KEY || API_KEY.length < 10) {
+    throw new Error("DEEPSEEK_API_KEY is not set or invalid");
+  }
+  return new OpenAI({
+    apiKey: API_KEY,
+    baseURL: BASE_URL,
+  });
+}
 
 export async function POST(req: NextRequest) {
   try {
-    const { messages, useReasoner } = await req.json();
+    const body = await req.json().catch(() => ({}));
+    const messages = body?.messages ?? [];
+    const useReasoner = !!body?.useReasoner;
 
+    if (!Array.isArray(messages) || messages.length === 0) {
+      return NextResponse.json(
+        { error: "Missing or invalid messages" },
+        { status: 400 }
+      );
+    }
+
+    const client = getClient();
     const model = useReasoner ? "deepseek-reasoner" : "deepseek-chat";
 
     const stream = await client.chat.completions.create({
@@ -76,10 +91,12 @@ export async function POST(req: NextRequest) {
         Connection: "keep-alive",
       },
     });
-  } catch (error) {
-    console.error("Chat API error:", error);
+  } catch (error: unknown) {
+    const err = error as { message?: string; status?: number; error?: { message?: string } };
+    const message = err?.error?.message ?? err?.message ?? String(error);
+    console.error("Chat API error:", message, error);
     return NextResponse.json(
-      { error: "Failed to process chat request" },
+      { error: "Failed to process chat request", details: message },
       { status: 500 }
     );
   }
