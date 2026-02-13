@@ -61,15 +61,19 @@ export const TaskPage: React.FC<Props> = ({
 
   const handleFinalSubmit = () => {
     if (!finalPlan.trim()) return;
-    if (phase2Start.current) {
-      setPhase2Duration(Math.round((Date.now() - phase2Start.current) / 1000));
+    const phase2Dur =
+      phase2Start.current != null
+        ? Math.round((Date.now() - phase2Start.current) / 1000)
+        : undefined;
+    if (phase2Start.current != null) {
+      setPhase2Duration(phase2Dur);
     }
     onComplete({
       preliminary_plan: condition === "human_first" ? preliminary : undefined,
       final_plan: finalPlan,
       chat_log: chatLog,
       phase1_duration: phase1Duration,
-      phase2_duration: phase2Duration,
+      phase2_duration: phase2Dur,
     });
     setPhase(3);
   };
