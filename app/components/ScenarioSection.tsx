@@ -30,7 +30,7 @@ There is no single correct approach regarding whether this feature will succeed,
 您的团队进行了广泛的市场调研，获得了以下详细数据：
 - 用户调研数据：在4500名活跃用户问卷调研中，72%表示对线下活动功能"非常感兴趣"或"比较感兴趣"；用户愿意为单次活动支付的平均价格为28元；最受欢迎的活动类型依次为：桌游(34%)、户外运动(28%)、手工DIY(18%)、读书会(12%)、其他(8%)
 - 竞品分析报告：3家主要竞品的线下活动功能活跃率为日活的15%-22%；竞品平均客单价为25-35元；市场存在明确的头部效应，先发者优势显著
-- 运营成本核算：功能开发需投入约45万元，周期3个月；每场活动运营成本约为收入的40%；达到盈亏平衡需月均举办2400场活动
+- 运营成本核算：功能开发需投入约45万元，周期3个月；每场活动运营成本约为收入的40%
 - 用户增长预测：基于历史数据模型，新功能预计带来月均15%的用户增长；6个月内有望突破35万月活用户`,
     en: `You are the founder of "QuYouQuan", a new social app for young people. Currently, your product is facing a critical decision point: whether to launch an innovative feature—offline event grouping—despite tight funding.
 
@@ -39,7 +39,7 @@ There is no single correct approach regarding whether this feature will succeed,
 Your team has conducted extensive market research and obtained the following detailed data:
 - User research data: In a survey of 4,500 active users, 72% expressed "very interested" or "somewhat interested" in the offline event feature; the average price users are willing to pay per event is 28 yuan; the most popular event types are: board games (34%), outdoor sports (28%), handicraft DIY (18%), book clubs (12%), others (8%)
 - Competitive analysis report: The offline event feature activity rate of 3 major competitors is 15%-22% of daily active users; competitor average order value is 25-35 yuan; the market shows clear head effects with significant first-mover advantages
-- Operating cost calculation: Feature development requires an investment of approximately 450,000 yuan with a 3-month cycle; operating cost per event is about 40% of revenue; break-even requires an average of 2,400 events per month
+- Operating cost calculation: Feature development requires an investment of approximately 450,000 yuan with a 3-month cycle; operating cost per event is about 40% of revenue
 - User growth forecast: Based on historical data models, the new feature is expected to bring 15% monthly user growth; monthly active users are expected to exceed 350,000 within 6 months`,
   },
   "study2-low": {
