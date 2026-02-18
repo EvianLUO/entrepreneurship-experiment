@@ -59,8 +59,8 @@ export const PosttestForm: React.FC<Props> = ({ onSubmit, studyVersion = "study1
         return;
       }
     }
-    // 检查基本信息（B9、B10、B11）
-    if (!form["B9"] || !form["B10"] || !form["B11"]) {
+    // 检查基本信息（性别、年龄、学历，独立字段不占用 B1-B22）
+    if (!form["posttest_gender"] || !form["posttest_age"] || !form["posttest_education"]) {
       setError(t("posttest.error"));
       return;
     }
@@ -280,14 +280,14 @@ export const PosttestForm: React.FC<Props> = ({ onSubmit, studyVersion = "study1
       <section className="space-y-4">
         <h3 className="font-semibold text-gray-800">{t("posttest.sectionBasicInfo")}</h3>
         <div className="border rounded-md p-3 text-sm space-y-2">
-          <div>B9. {t("posttest.questionsBasic.B9")}</div>
+          <div>{t("posttest.questionsBasic.gender")}</div>
           {(Array.isArray(t("posttest.options.gender")) ? t("posttest.options.gender") : []).map((opt: string) => (
             <label key={opt} className="flex items-center gap-2">
               <input
                 type="radio"
-                name="B9"
-                checked={form["B9"] === opt}
-                onChange={() => handleChange("B9", opt)}
+                name="posttest_gender"
+                checked={form["posttest_gender"] === opt}
+                onChange={() => handleChange("posttest_gender", opt)}
               />
               <span>{opt}</span>
             </label>
@@ -295,14 +295,14 @@ export const PosttestForm: React.FC<Props> = ({ onSubmit, studyVersion = "study1
         </div>
 
         <div className="border rounded-md p-3 text-sm space-y-2">
-          <div>B10. {t("posttest.questionsBasic.B10")}</div>
+          <div>{t("posttest.questionsBasic.age")}</div>
           {(Array.isArray(t("posttest.options.age")) ? t("posttest.options.age") : []).map((opt: string) => (
             <label key={opt} className="flex items-center gap-2">
               <input
                 type="radio"
-                name="B10"
-                checked={form["B10"] === opt}
-                onChange={() => handleChange("B10", opt)}
+                name="posttest_age"
+                checked={form["posttest_age"] === opt}
+                onChange={() => handleChange("posttest_age", opt)}
               />
               <span>{opt}</span>
             </label>
@@ -310,14 +310,14 @@ export const PosttestForm: React.FC<Props> = ({ onSubmit, studyVersion = "study1
         </div>
 
         <div className="border rounded-md p-3 text-sm space-y-2">
-          <div>B11. {t("posttest.questionsBasic.B11")}</div>
+          <div>{t("posttest.questionsBasic.education")}</div>
           {(Array.isArray(t("posttest.options.education")) ? t("posttest.options.education") : []).map((opt: string) => (
             <label key={opt} className="flex items-center gap-2">
               <input
                 type="radio"
-                name="B11"
-                checked={form["B11"] === opt}
-                onChange={() => handleChange("B11", opt)}
+                name="posttest_education"
+                checked={form["posttest_education"] === opt}
+                onChange={() => handleChange("posttest_education", opt)}
               />
               <span>{opt}</span>
             </label>

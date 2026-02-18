@@ -86,9 +86,9 @@
 | manip_check_3 | AI 可解释性操纵检验（1～7，仅 Study2 有）。 |
 | manip_check_4 | 对 AI 建议的理解程度（1～7，仅 Study2 有）。 |
 | B1～B22 | 效果逻辑量表 22 题（1～7 分）。 |
-| B9 | 性别。 |
-| B10 | 年龄。 |
-| B11 | 最高学历。 |
+| posttest_gender | 性别。 |
+| posttest_age | 年龄。 |
+| posttest_education | 最高学历。 |
 
 ---
 
