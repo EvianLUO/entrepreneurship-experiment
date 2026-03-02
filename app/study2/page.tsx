@@ -91,7 +91,10 @@ export default function Study2Page() {
         setLoading(false);
         return;
       }
-      const participant = json.participant;
+      const participant = json.participant as
+        | { participant_id?: string; interaction_order?: string; ai_reasoner?: string }
+        | null
+        | undefined;
       if (!participant) {
         console.error("No participant data returned");
         setLoading(false);
@@ -101,8 +104,8 @@ export default function Study2Page() {
       const state: LocalState = {
         participant_id: participant.participant_id ?? uuidv4(),
         step: 1,
-        interaction_order: participant.interaction_order || "human_first",
-        ai_reasoner: participant.ai_reasoner || "off",
+        interaction_order: (participant.interaction_order as LocalState["interaction_order"]) || "human_first",
+        ai_reasoner: (participant.ai_reasoner as LocalState["ai_reasoner"]) || "off",
       };
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
       console.log("Setting local state:", state);
