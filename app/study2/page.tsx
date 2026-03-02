@@ -64,22 +64,30 @@ export default function Study2Page() {
       
       console.log("Response status:", res.status);
       
+      const text = await res.text();
+      let json: { error?: string; participant?: unknown; supabase?: { message?: string } } = {};
+      try {
+        json = JSON.parse(text || "{}");
+      } catch {
+        console.error("API response not JSON:", text);
+      }
+      console.log("API response:", json);
+
       if (!res.ok) {
-        const errorText = await res.text();
-        console.error("API error response:", errorText);
         const currentLang = typeof window !== "undefined" ? (localStorage.getItem("language") || "zh") : "zh";
-        alert(currentLang === "zh" ? "创建参与者失败，请刷新页面重试" : "Failed to create participant, please refresh and retry");
+        const detail = json?.supabase?.message || json?.error || "";
+        const msg = currentLang === "zh"
+          ? "创建参与者失败，请刷新页面重试。" + (detail ? " 原因：" + detail : "")
+          : "Failed to create participant, please refresh and retry." + (detail ? " " + detail : "");
+        alert(msg);
         setLoading(false);
         return;
       }
-      
-      const json = await res.json();
-      console.log("API response:", json);
-      
+
       if (json.error) {
-        console.error("Failed to create participant:", json.error);
         const currentLang = typeof window !== "undefined" ? (localStorage.getItem("language") || "zh") : "zh";
-        alert(currentLang === "zh" ? "创建参与者失败，请刷新页面重试" : "Failed to create participant, please refresh and retry");
+        const detail = json.supabase?.message || json.error;
+        alert(currentLang === "zh" ? "创建参与者失败。原因：" + detail : "Failed to create participant: " + detail);
         setLoading(false);
         return;
       }
